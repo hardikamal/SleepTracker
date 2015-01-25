@@ -26,6 +26,8 @@
 
 @synthesize fetchArray;
 
+#pragma mark - Lazy Initialization
+
 - (SleepDataModel *)sleepDataModel
 {
     if (!_sleepDataModel) {
@@ -33,6 +35,8 @@
     }
     return _sleepDataModel;
 }
+
+#pragma mark - Initialization
 
 - (NSArray *)generateStatistic:(NSInteger)resentDay
 {
@@ -70,6 +74,8 @@
     dataDate = [[formatter stringFromDate:self.sleepData.wakeUpTime] integerValue];
     lastDataDate = dataDate + 1;
 }
+
+#pragma mark - Main
 
 - (NSArray *)showSleepTimeDataInTheRecent:(NSInteger)recent
 {
