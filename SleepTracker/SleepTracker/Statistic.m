@@ -34,6 +34,27 @@
     return _sleepDataModel;
 }
 
+- (NSArray *)generateStatistic:(NSInteger)resentDay
+{
+    NSArray *array;
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"DDD"];  // 1~366 一年的第幾天
+    
+    today = [[formatter stringFromDate:[NSDate date]] integerValue];
+    
+    fetchArray = [self.sleepDataModel fetchSleepDataSortWithAscending:NO];
+    if (fetchArray.count > 0 ) {
+        self.sleepData = fetchArray[0];
+        if (fetchArray.count >= 2 || (fetchArray.count == 1 && self.sleepData.wakeUpTime > 0) )
+        {
+            array = @[[self showSleepTimeDataInTheRecent:resentDay], [self showGoToBedTimeDataInTheRecent:resentDay], [self showWakeUpTimeDataInTheRecent:resentDay]];
+        }
+    }
+    
+    return array;
+}
+
 - (void)Initailize
 {
     MAX = 0;
