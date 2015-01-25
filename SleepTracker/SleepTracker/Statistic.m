@@ -185,6 +185,122 @@
 {
     [self Initailize];
     
+    if ([fetchArray count] >= 2 || ([fetchArray count] == 1 && ([self.sleepData.sleepTime floatValue] > 0)) )  //起碼要有一筆完整的資料
+    {
+        row = ([self.sleepData.sleepTime floatValue] == 0) ? 1 : 0 ;  //如果現在是睡覺狀態，那就跳過第一筆資料，因為第一筆資料還沒有sleepTime的資料
+        self.sleepData = fetchArray[row];
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"DDD"];  // 1~366 一年的第幾天
+        
+        today = [[formatter stringFromDate:[NSDate date]] integerValue];
+        dataDate = [[formatter stringFromDate:self.sleepData.wakeUpTime] integerValue];
+        lastDataDate = dataDate + 1;
+        
+        NSDate *goToBedTime;
+        NSInteger goToBedTimeInSecond;
+        
+        NSMutableArray *maxStack = [[NSMutableArray alloc] init];
+        NSInteger lastMaxDate = dataDate + 1;
+        
+        NSCalendar *greCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSDateComponents *dateComponents;
+        
+        while ( dataDate > (today - recent) )   //dataDate > (today - recent) 看天數
+        {
+            if ([self.sleepData.sleepType isEqualToString:@"一般"]) {
+                goToBedTime = self.sleepData.goToBedTime;
+                
+                dateComponents = [greCalendar components: NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:goToBedTime];
+                
+                if (dataDate == [[formatter stringFromDate:goToBedTime] integerValue]) {
+                    goToBedTimeInSecond = dateComponents.second + dateComponents.minute*60 + dateComponents.hour*3600 ;
+                } else {
+                    goToBedTimeInSecond = (dateComponents.second + dateComponents.minute*60 + dateComponents.hour*3600) - 86400;
+                }
+                
+                if ( goToBedTimeInSecond < MIN) MIN = goToBedTimeInSecond;
+                
+                if (dataDate != lastDataDate) {
+                    if (goToBedTimeInSecond > MAX) {
+                        MAX = goToBedTimeInSecond;
+                        
+                        [maxStack addObject:[NSNumber numberWithInteger:goToBedTimeInSecond]];
+                        lastMaxDate = dataDate;
+                    }
+                } else if (dataDate == lastDataDate) {
+                    if ( goToBedTimeInSecond < MIN) MIN = goToBedTimeInSecond;
+                    
+                    if ([maxStack count] >= 2)
+                    {
+                        if (dataDate == lastMaxDate) {
+                            if (goToBedTimeInSecond > [maxStack[maxStack.count - 2] floatValue]) {
+                                MAX = goToBedTimeInSecond;
+                                [maxStack removeLastObject];
+                                [maxStack addObject:[NSNumber numberWithFloat:goToBedTimeInSecond]];
+                                lastMaxDate = dataDate;
+                            } else {
+                                MAX = [maxStack[maxStack.count - 2] floatValue];  //儲存回上上筆的資料
+                                [maxStack removeLastObject];
+                                lastMaxDate = dataDate;
+                            }
+                        } else if (dataDate != lastMaxDate) {
+                            if (goToBedTimeInSecond > [maxStack[maxStack.count - 1] floatValue]) {
+                                MAX = goToBedTimeInSecond;
+                                [maxStack addObject:[NSNumber numberWithFloat:goToBedTimeInSecond]];
+                                lastMaxDate = dataDate;
+                            } else {
+                                //do nothing
+                            }
+                        }
+                    }
+                    else if (maxStack.count == 1)  //不會有零筆資料，因為這裡要一天中超過一筆資料程式才會跑到這裡來
+                    {
+                        if (dataDate == lastMaxDate) {
+                            MAX = goToBedTimeInSecond;
+                            [maxStack removeLastObject];
+                            [maxStack addObject:[NSNumber numberWithFloat:goToBedTimeInSecond]];
+                            lastMaxDate = dataDate;
+                        } else if (dataDate != lastMaxDate) {
+                            if (goToBedTimeInSecond > MAX) {
+                                MAX = goToBedTimeInSecond;
+                                [maxStack addObject:[NSNumber numberWithFloat:goToBedTimeInSecond]];
+                                lastMaxDate = dataDate;
+                            } else {
+                                //do nothing
+                            }
+                        }
+                    }
+                }
+                
+                lastDataDate = [[formatter stringFromDate:self.sleepData.wakeUpTime] integerValue];
+            }
+            
+            if (++row < [fetchArray count]) {
+                self.sleepData = fetchArray[row];
+                dataDate = [[formatter stringFromDate:self.sleepData.wakeUpTime] integerValue];
+            } else {
+                break;  //如果總資料比數少於所需要計算的天數，直接跳出
+            }
+        }
+        
+
+        
+        
+        
+    } else {
+        MIN = 0;
+        MAX = 0;
+        AVG = 0;
+    }
+    
+    
+    if (MIN < 0) {
+        MIN += 86400;
+    } else if (MIN == 99999999) {
+        MIN = 0;
+    }
+    
     return @[[NSNumber numberWithFloat:MIN], [NSNumber numberWithFloat:MAX], [NSNumber numberWithFloat:AVG]];
 }
 
