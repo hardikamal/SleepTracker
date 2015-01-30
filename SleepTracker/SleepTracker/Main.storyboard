@@ -493,7 +493,7 @@
         <!--Alarm View Controller-->
         <scene sceneID="R8e-iV-30m">
             <objects>
-                <viewController id="dIO-pK-do8" customClass="AlarmViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="setAlarm" id="dIO-pK-do8" customClass="AlarmViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zEd-8Y-rmh"/>
                         <viewControllerLayoutGuide type="bottom" id="c2d-FH-cep"/>
@@ -565,7 +565,33 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mRD-BW-eMj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3247" y="3687"/>
+            <point key="canvasLocation" x="3260" y="3484"/>
+        </scene>
+        <!--Ringtones Table View Controller-->
+        <scene sceneID="uNb-yH-XAd">
+            <objects>
+                <tableViewController storyboardIdentifier="Ringtones" id="tQ7-uu-SV2" customClass="RingtonesTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="r0e-Y7-6HY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="BS0-db-az3">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BS0-db-az3" id="JwG-eR-Gar">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="tQ7-uu-SV2" id="UF9-GU-O2A"/>
+                            <outlet property="delegate" destination="tQ7-uu-SV2" id="Kov-PM-SyC"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9CN-iC-lmX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3260" y="4180"/>
         </scene>
         <!--睡前通知-->
         <scene sceneID="d1n-4X-Nne">
