@@ -190,7 +190,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="紀錄" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="紀錄" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="alreadyAwakeLabel" destination="ocf-9R-tfj" id="ZSK-5u-VOO"/>
                         <outlet property="alreadySleptLabel" destination="MHo-HO-9Qg" id="X5u-7z-J49"/>
@@ -388,7 +388,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="dIO-pK-do8" kind="show" id="biO-tC-v4j"/>
+                                            <segue destination="eAi-ef-R1c" kind="show" id="JYi-Wn-9Tl"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -464,6 +464,32 @@
             </objects>
             <point key="canvasLocation" x="2541" y="1617"/>
         </scene>
+        <!--Alarm Table View Controller-->
+        <scene sceneID="omS-sA-Wwd">
+            <objects>
+                <tableViewController id="eAi-ef-R1c" customClass="AlarmTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="lf4-I3-pWq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="1FK-NP-Pf9">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1FK-NP-Pf9" id="8px-y0-KhH">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="eAi-ef-R1c" id="y5O-mc-QXP"/>
+                            <outlet property="delegate" destination="eAi-ef-R1c" id="w3l-Sd-olp"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hfw-q6-qGF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2541" y="3687"/>
+        </scene>
         <!--Alarm View Controller-->
         <scene sceneID="R8e-iV-30m">
             <objects>
@@ -476,13 +502,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="PfR-HL-bBk">
+                            <datePicker contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="PfR-HL-bBk">
                                 <rect key="frame" x="140" y="97" width="320" height="162"/>
                                 <date key="date" timeIntervalSinceReferenceDate="443392453.83619702">
                                     <!--2015-01-19 20:34:13 +0000-->
                                 </date>
                             </datePicker>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sx7-7C-Qfw">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sx7-7C-Qfw">
                                 <rect key="frame" x="309" y="342" width="51" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="yf9-EC-Wp0"/>
@@ -496,7 +522,7 @@
                                     <action selector="setAlarm:" destination="dIO-pK-do8" eventType="valueChanged" id="ecY-P6-Pyc"/>
                                 </connections>
                             </switch>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jX0-i1-XHr">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jX0-i1-XHr">
                                 <rect key="frame" x="237" y="343" width="60" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="qvj-aT-Vjt"/>
@@ -539,7 +565,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mRD-BW-eMj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2541" y="3005"/>
+            <point key="canvasLocation" x="3247" y="3687"/>
         </scene>
         <!--睡前通知-->
         <scene sceneID="d1n-4X-Nne">
@@ -909,7 +935,7 @@
                             <constraint firstItem="p2N-If-JDR" firstAttribute="trailing" secondItem="QS5-Rx-YEW" secondAttribute="trailingMargin" id="JbW-Xy-1Pc"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="統計圖表" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="統計圖表" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="goToBedTimeAvgLabel" destination="7Fa-iN-Jh0" id="imd-3p-9oc"/>
                         <outlet property="goToBedTimeMaxLabel" destination="kJf-5f-avt" id="k1t-3w-EHC"/>
@@ -1106,8 +1132,4 @@
             <point key="canvasLocation" x="-60" y="0.0"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="first" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
-    </resources>
 </document>
